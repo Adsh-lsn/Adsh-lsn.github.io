@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="寻找两个正序数组的中位数给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。  输入：nums1 &#x3D; [1,3], nums2 &#x3D; [2]输出：2.00000解释：合并数组 &#x3D; [1,2,3] ，中位数 2   输入：nums1 &#x3D; [1,2], nums2 &#x3D; [3,4]输出：2.50000解释：合并数组 &#x3D; [1,2,3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode之寻找两个正序数组的中位数">
+<meta property="og:url" content="http://example.com/2021/05/05/LeetCode%E4%B9%8B%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/index.html">
+<meta property="og:site_name" content="时光记忆">
+<meta property="og:description" content="寻找两个正序数组的中位数给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。  输入：nums1 &#x3D; [1,3], nums2 &#x3D; [2]输出：2.00000解释：合并数组 &#x3D; [1,2,3] ，中位数 2   输入：nums1 &#x3D; [1,2], nums2 &#x3D; [3,4]输出：2.50000解释：合并数组 &#x3D; [1,2,3">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-05T11:14:01.000Z">
+<meta property="article:modified_time" content="2021-05-05T11:14:56.669Z">
+<meta property="article:author" content="刘胜男">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/05/05/LeetCode%E4%B9%8B%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>LeetCode之寻找两个正序数组的中位数 | 时光记忆</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">时光记忆</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description"> </p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="download fa-fw"></i>resources</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/LeetCode%E4%B9%8B%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="刘胜男">
+      <meta itemprop="description" content="找到自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="时光记忆">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode之寻找两个正序数组的中位数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-05 19:14:01 / 修改时间：19:14:56" itemprop="dateCreated datePublished" datetime="2021-05-05T19:14:01+08:00">2021-05-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="寻找两个正序数组的中位数"><a href="#寻找两个正序数组的中位数" class="headerlink" title="寻找两个正序数组的中位数"></a>寻找两个正序数组的中位数</h3><p>给定两个大小分别为 <code>m</code> 和 <code>n</code> 的正序（从小到大）数组 <code>nums1</code> 和 <code>nums2</code>。请你找出并返回这两个正序数组的 <strong>中位数</strong> 。</p>
+<blockquote>
+<p>输入：nums1 = [1,3], nums2 = [2]<br>输出：2.00000<br>解释：合并数组 = [1,2,3] ，中位数 2</p>
+</blockquote>
+<blockquote>
+<p>输入：nums1 = [1,2], nums2 = [3,4]<br>输出：2.50000<br>解释：合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5</p>
+</blockquote>
+<blockquote>
+<p>输入：nums1 = [0,0], nums2 = [0,0]<br>输出：0.00000</p>
+</blockquote>
+<blockquote>
+<p>输入：nums1 = [], nums2 = [1]<br>输出：1.00000</p>
+</blockquote>
+<blockquote>
+<p>输入：nums1 = [2], nums2 = []<br>输出：2.00000</p>
+</blockquote>
+<h4 id="Version1：这是自己第一次顺畅的，没有修改的，一次性写对的算法题，骄傲"><a href="#Version1：这是自己第一次顺畅的，没有修改的，一次性写对的算法题，骄傲" class="headerlink" title="Version1：这是自己第一次顺畅的，没有修改的，一次性写对的算法题，骄傲"></a>Version1：这是自己第一次顺畅的，没有修改的，一次性写对的算法题，骄傲</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//整体思路：将nums1和nums2中的值赋值到一个新的数组，新数组的大小为原来两数组长度的和。从新得到的数组中就很容易得到中位数了。</span></span><br><span class="line">    <span class="keyword">int</span> len1=nums1.length;</span><br><span class="line">    <span class="keyword">int</span> len2=nums2.length;</span><br><span class="line">    <span class="keyword">int</span> len=len1+len2;</span><br><span class="line">    <span class="keyword">int</span>[] arr=<span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">    <span class="comment">//定义两个指针：start1和start2，start1表示数组1的移动下标，start2表示数组2的移动下标</span></span><br><span class="line">    <span class="keyword">int</span> start1=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> start2=<span class="number">0</span>;</span><br><span class="line">    <span class="comment">//ans表示最终的结果：中位数</span></span><br><span class="line">    <span class="keyword">double</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(start1&lt;len1&amp;&amp;start2&lt;len2)&#123;<span class="comment">//数组1和数组2都没有到最后</span></span><br><span class="line">            <span class="keyword">if</span>(nums1[start1]&lt;=nums2[start2])&#123;<span class="comment">//根据start1和start2位置数的大小，确定将那个数                                                插入到新数组中，并将指针移动到下一个位置。</span></span><br><span class="line">                arr[i]=nums1[start1];</span><br><span class="line">                start1++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                arr[i]=nums2[start2];</span><br><span class="line">                start2++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(start1&lt;len1)&#123;<span class="comment">//数组2已经遍历完成了，将数组1剩余的值复制到新数组中</span></span><br><span class="line">            arr[i]=nums1[start1];</span><br><span class="line">            start1++;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;<span class="comment">//数组1已经遍历完成了，将数组2剩余的值复制到新数组中</span></span><br><span class="line">            arr[i]=nums2[start2];</span><br><span class="line">            start2++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(len%<span class="number">2</span>==<span class="number">1</span>)&#123;</span><br><span class="line">        ans=arr[len/<span class="number">2</span>];</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        ans=(arr[len/<span class="number">2</span>-<span class="number">1</span>]+arr[len/<span class="number">2</span>])/<span class="number">2.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>执行用时：3 ms, 在所有 Java 提交中击败了82.29% 的用户</p>
+<p>内存消耗：39.5 MB, 在所有 Java 提交中击败了88.64% 的用户</p>
+</blockquote>
+<h4 id="Version2-利用二分法调用递归"><a href="#Version2-利用二分法调用递归" class="headerlink" title="Version2 利用二分法调用递归"></a>Version2 利用二分法调用递归</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m=nums1.length;</span><br><span class="line">        <span class="keyword">int</span> n=nums2.length;</span><br><span class="line">        <span class="keyword">int</span> left=(n+m+<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> right=(n+m+<span class="number">2</span>)/<span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//m+n的结果分为两种情况，和为奇数；和为偶数。下面这行代码将两种情况合成一种情况，不用进行分类讨论了。</span></span><br><span class="line">        <span class="comment">//当m+n为奇数，中位数则取中间值。(n+m+1)/2=中位数，而(n+m+2)/2=(n+m+1)/2+(1/2)=取整后为(n+m+1)/2，二者的和再除以2还为中位数。</span></span><br><span class="line">        <span class="comment">//当m+n为偶数，中位数则取中间两个数的平均值。(n+m+1)/2=(n+m)/2+(1/2)取整后为(n+m)/2；(n+m+2)/2=(n+m)/2+1；正好是中间的两个数，和的一半即为中位数。</span></span><br><span class="line">        <span class="keyword">return</span> (getKth(nums1,<span class="number">0</span>,m-<span class="number">1</span>,nums2,<span class="number">0</span>,n-<span class="number">1</span>,left)+getKth(nums1,<span class="number">0</span>,m-<span class="number">1</span>,nums2,<span class="number">0</span>,n-<span class="number">1</span>,right))/<span class="number">2.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getKth</span><span class="params">(<span class="keyword">int</span>[] nums1,<span class="keyword">int</span> start1,<span class="keyword">int</span> end1,<span class="keyword">int</span>[] nums2,<span class="keyword">int</span> start2,<span class="keyword">int</span> end2,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len1=end1-start1+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> len2=end2-start2+<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果第一个数组长度大于第二个字符长度，交换两个数组的位置，始终让较小的数组放在前面，这样可以保证当数组长度为0时，是第一个数组。</span></span><br><span class="line">        <span class="keyword">if</span>(len1&gt;len2)&#123;</span><br><span class="line">            <span class="keyword">return</span> getKth(nums2,start2,end2,nums1,start1,end1,k);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果第一个数组长度为0时，直接求第二数组的从start2起的第k-1个数。</span></span><br><span class="line">        <span class="comment">//递归终止条件1：</span></span><br><span class="line">        <span class="keyword">if</span>(len1==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> nums2[start2+k-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//递归终止条件2：</span></span><br><span class="line">        <span class="comment">//k==1,表示只需要求出第一个小的数即可，因此比较两个数组中第一个数的大小，返回较小的数。</span></span><br><span class="line">        <span class="keyword">if</span>(k==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> Math.min(nums1[start1],nums2[start2]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//对于第一个数组的第i个值分为2种情况</span></span><br><span class="line">        <span class="comment">//1.len1&lt;k/2:因此比较数组1的最后一个数和第二个数组的k/2个数</span></span><br><span class="line">        <span class="comment">//2.len1&gt;k/2;因此比较数组1的k/2个数和第二个数组的k/2个数</span></span><br><span class="line">        <span class="keyword">int</span> i=start1+Math.min(len1,k/<span class="number">2</span>)-<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//对于j来说是属于第二个数组的，因此不需要比较len2,k/2的大小，肯定是k/2。</span></span><br><span class="line"><span class="comment">//        int j=start2+Math.min(len2,k/2)-1;</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> j=start2+(k/<span class="number">2</span>)-<span class="number">1</span>;</span><br><span class="line">        <span class="comment">//调用递归，每次砍去一半值。</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(nums1[i]&gt;nums2[j])&#123;</span><br><span class="line">            <span class="keyword">return</span> getKth(nums1,start1,end1,nums2,j+<span class="number">1</span>,end2,k-(j-start2+<span class="number">1</span>));</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> getKth(nums1,i+<span class="number">1</span>,end1,nums2,start2,end2,k-(i-start1+<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><blockquote>
+<p>1.求中位数的下标时，可以借鉴如何将奇数和偶数合二为一的方式，就不用单独进行讨论了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> first=(n+<span class="number">1</span>)/<span class="number">2</span>;<span class="comment">//n为数组的长度</span></span><br><span class="line"><span class="keyword">int</span> second=(n+<span class="number">2</span>)/<span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> medium=(first+second)/<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2.当两个数组相加时，当涉及到数组先计算完和后计算完（即数组长短的问题），可以人为的设置数组长度短的在前面，数组长的在后面，也可以简化分类操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(len1&gt;len2)&#123;</span><br><span class="line"> <span class="keyword">return</span> getKth(nums2,start2,end2,nums1,start1,end1,k);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.使用递归时，要设置好递归结束的条件。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/04/%E4%BB%8E01%E4%B8%8D%E7%AD%89%E6%A6%82%E7%8E%87%E9%9A%8F%E6%9C%BA%E5%8F%98%E6%88%90%E7%AD%89%E6%A6%82%E7%8E%87%E9%9A%8F%E6%9C%BA/" rel="prev" title="从01不等概率随机变成等概率随机">
+      <i class="fa fa-chevron-left"></i> 从01不等概率随机变成等概率随机
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/05/%E4%BA%8C%E5%88%86%E6%B3%95%E2%80%94%E2%80%94%E5%B1%80%E9%83%A8%E6%9C%80%E5%B0%8F%E5%80%BC%E9%97%AE%E9%A2%98/" rel="next" title="二分法——局部最小值问题">
+      二分法——局部最小值问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">寻找两个正序数组的中位数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Version1%EF%BC%9A%E8%BF%99%E6%98%AF%E8%87%AA%E5%B7%B1%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%A1%BA%E7%95%85%E7%9A%84%EF%BC%8C%E6%B2%A1%E6%9C%89%E4%BF%AE%E6%94%B9%E7%9A%84%EF%BC%8C%E4%B8%80%E6%AC%A1%E6%80%A7%E5%86%99%E5%AF%B9%E7%9A%84%E7%AE%97%E6%B3%95%E9%A2%98%EF%BC%8C%E9%AA%84%E5%82%B2"><span class="nav-number">1.1.</span> <span class="nav-text">Version1：这是自己第一次顺畅的，没有修改的，一次性写对的算法题，骄傲</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Version2-%E5%88%A9%E7%94%A8%E4%BA%8C%E5%88%86%E6%B3%95%E8%B0%83%E7%94%A8%E9%80%92%E5%BD%92"><span class="nav-number">1.2.</span> <span class="nav-text">Version2 利用二分法调用递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="刘胜男"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">刘胜男</p>
+  <div class="site-description" itemprop="description">找到自己</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘胜男</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共20.2k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
