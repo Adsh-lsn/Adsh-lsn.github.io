@@ -180,7 +180,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/04/3%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/%E7%94%A8%E4%BA%8C%E5%88%86%E6%B3%95%E5%9C%A8%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E8%BF%94%E5%9B%9E%E6%98%AF%E5%90%A6%E6%9C%89%E6%9F%90%E4%B8%AA%E5%80%BC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -194,7 +194,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/05/04/3%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/" class="post-title-link" itemprop="url">3无重复字符的最长子串</a>
+            <a href="/2021/05/05/%E7%94%A8%E4%BA%8C%E5%88%86%E6%B3%95%E5%9C%A8%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E8%BF%94%E5%9B%9E%E6%98%AF%E5%90%A6%E6%9C%89%E6%9F%90%E4%B8%AA%E5%80%BC/" class="post-title-link" itemprop="url">用二分法在有序数组中返回是否有某个值</a>
         </h2>
 
         <div class="post-meta">
@@ -205,7 +205,154 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-05-04 12:28:09 / 修改时间：12:28:54" itemprop="dateCreated datePublished" datetime="2021-05-04T12:28:09+08:00">2021-05-04</time>
+              <time title="创建时间：2021-05-05 19:17:09 / 修改时间：19:19:21" itemprop="dateCreated datePublished" datetime="2021-05-05T19:17:09+08:00">2021-05-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AF%BE%E5%A0%82/" itemprop="url" rel="index"><span itemprop="name">课堂</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="二分法——在一个有序数组中返回是否有某个值"><a href="#二分法——在一个有序数组中返回是否有某个值" class="headerlink" title="二分法——在一个有序数组中返回是否有某个值"></a>二分法——在一个有序数组中返回是否有某个值</h3><h4 id="二分法："><a href="#二分法：" class="headerlink" title="二分法："></a>二分法：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">halfSelect</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">    <span class="comment">//判断边界条件：arr为空，或者长度为0</span></span><br><span class="line">    <span class="keyword">if</span>(arr==<span class="keyword">null</span>&amp;&amp;arr.length==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> N=arr.length;</span><br><span class="line">    <span class="comment">//L为左边界</span></span><br><span class="line">    <span class="keyword">int</span> L=<span class="number">0</span>;</span><br><span class="line">    <span class="comment">//R为有边界</span></span><br><span class="line">    <span class="keyword">int</span> R=N-<span class="number">1</span>;</span><br><span class="line">    <span class="comment">//当左边界&lt;右边界时，拿num和中位数比较，分为三种情况</span></span><br><span class="line">    <span class="comment">//1.arr[mid]==num，返回true</span></span><br><span class="line">    <span class="comment">//2.arr[mid]&lt;num，改变左边界的值，继续二分</span></span><br><span class="line">    <span class="comment">//3.arr[mid]&gt;num，改变右边界的值，继续二分</span></span><br><span class="line">    <span class="keyword">while</span> (L&lt;=R)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid=(L+R)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(arr[mid]==num)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[mid]&lt;num)&#123;</span><br><span class="line">            L=mid+<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            R=mid-<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="加上了比较器"><a href="#加上了比较器" class="headerlink" title="加上了比较器"></a>加上了比较器</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HalfSelection</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//测试次数10000次。</span></span><br><span class="line">        <span class="keyword">int</span> testTime=<span class="number">10000</span>;</span><br><span class="line">        <span class="keyword">int</span> maxLength=<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span> maxValue=<span class="number">100</span>;</span><br><span class="line">        <span class="keyword">boolean</span> succeed=<span class="keyword">true</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;程序开始&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;testTime;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span>[] sortedArray=generateRandomArray(maxLength,maxValue);</span><br><span class="line">            Arrays.sort(sortedArray);</span><br><span class="line">            <span class="comment">//value：在数组中要查找的值。</span></span><br><span class="line">            <span class="keyword">int</span> value=(<span class="keyword">int</span>)(Math.random()*(maxValue+<span class="number">1</span>))-(<span class="keyword">int</span>)(Math.random()*maxValue);</span><br><span class="line">            <span class="keyword">if</span>(halfSelect(sortedArray,value)!=test(sortedArray,value))&#123;</span><br><span class="line">                succeed=<span class="keyword">false</span>;</span><br><span class="line">                System.out.println(<span class="string">&quot;失败&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;程序结束&quot;</span>);</span><br><span class="line">        System.out.println(succeed?<span class="string">&quot;Nice!&quot;</span>:<span class="string">&quot;failed&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">halfSelect</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">        <span class="comment">//判断边界条件：arr为空，或者长度为0</span></span><br><span class="line">        <span class="keyword">if</span>(arr==<span class="keyword">null</span>&amp;&amp;arr.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> N=arr.length;</span><br><span class="line">        <span class="comment">//L为左边界</span></span><br><span class="line">        <span class="keyword">int</span> L=<span class="number">0</span>;</span><br><span class="line">        <span class="comment">//R为有边界</span></span><br><span class="line">        <span class="keyword">int</span> R=N-<span class="number">1</span>;</span><br><span class="line">        <span class="comment">//当左边界&lt;右边界时，拿num和中位数比较，分为三种情况</span></span><br><span class="line">        <span class="comment">//1.arr[mid]==num，返回true</span></span><br><span class="line">        <span class="comment">//2.arr[mid]&lt;num，改变左边界的值，继续二分</span></span><br><span class="line">        <span class="comment">//3.arr[mid]&gt;num，改变右边界的值，继续二分</span></span><br><span class="line">        <span class="keyword">while</span> (L&lt;=R)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid=(L+R)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(arr[mid]==num)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[mid]&lt;num)&#123;</span><br><span class="line">                L=mid+<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                R=mid-<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//产生随机大小的数组，数组中的值也是随机的。</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] generateRandomArray(<span class="keyword">int</span> maxLength,<span class="keyword">int</span> maxValue)&#123;</span><br><span class="line">        <span class="keyword">int</span> length=(<span class="keyword">int</span>)(Math.random()*(maxLength+<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">int</span>[] array=<span class="keyword">new</span> <span class="keyword">int</span>[length];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;length;i++)&#123;</span><br><span class="line">            array[i]=(<span class="keyword">int</span>)(Math.random()*(maxValue+<span class="number">1</span>))-(<span class="keyword">int</span>)(Math.random()*maxValue);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//另一种绝对正确的实现方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[i]==num)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/%E4%BA%8C%E5%88%86%E6%B3%95%E2%80%94%E2%80%94%E5%B1%80%E9%83%A8%E6%9C%80%E5%B0%8F%E5%80%BC%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="刘胜男">
+      <meta itemprop="description" content="找到自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="时光记忆">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/05/%E4%BA%8C%E5%88%86%E6%B3%95%E2%80%94%E2%80%94%E5%B1%80%E9%83%A8%E6%9C%80%E5%B0%8F%E5%80%BC%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">二分法——局部最小值问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-05 19:15:31 / 修改时间：19:16:41" itemprop="dateCreated datePublished" datetime="2021-05-05T19:15:31+08:00">2021-05-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AF%BE%E5%A0%82/" itemprop="url" rel="index"><span itemprop="name">课堂</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="二分法——局部最小值问题"><a href="#二分法——局部最小值问题" class="headerlink" title="二分法——局部最小值问题"></a>二分法——局部最小值问题</h3><p>求一个无序数组中局部最小值问题，该无序数组的任意一个元素相邻不等。</p>
+<p>思想：</p>
+<p>局部最小分为三种情况：</p>
+<p>1）最左侧：arr[0]&lt;arr[1]————————min为arr[0]</p>
+<p>2）最右侧：arr[n-2]&gt;arr[n-1]——————min为arr[n-1]</p>
+<p>3）中间值：arr[i-1]&gt;arr[i]&lt;arr[i+1]————min为arr[i]</p>
+<p>如果arr[0]&gt;arr[1]，而且arr[n-2]&lt;arr[n-1]，那么在[1,n-1]之间，一定有一个最小值。</p>
+<p>用二分法判断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">LocalMinValue</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">    <span class="comment">//断边界条件：arr为空，或者长度为0</span></span><br><span class="line">    <span class="keyword">if</span>(arr==<span class="keyword">null</span>&amp;&amp;arr.length==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> length= arr.length;</span><br><span class="line">    <span class="comment">//当数组只有一个元素时，该元素即为最小值，最小值的下标为0。</span></span><br><span class="line">    <span class="keyword">if</span>(length==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//最左侧两个数进行判断</span></span><br><span class="line">    <span class="keyword">if</span>(arr[<span class="number">0</span>]&lt;arr[<span class="number">1</span>])&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//最右侧两个数进行判断</span></span><br><span class="line">    <span class="keyword">if</span>(arr[length-<span class="number">2</span>]&gt;arr[length-<span class="number">1</span>])&#123;</span><br><span class="line">        <span class="keyword">return</span> length-<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> L=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> R=length-<span class="number">1</span>;</span><br><span class="line">    <span class="comment">//为什么前面都是L&lt;=R,而这里是L&lt;R-1？</span></span><br><span class="line">    <span class="comment">//因为L的右边肯定有2个数：R-1和R，加上L这个数，该判断数组片断中至少有3个数，因此中位数mid就会在中间，</span></span><br><span class="line">    <span class="comment">// 所以，mid-1就不会出现0-1=-1越左边界的情况，也不会出现，length-1=length越右边界的情况。</span></span><br><span class="line">    <span class="comment">//因为前两道题中都没有根据数据下标取元素值，而此道算法题中出现了。因此以后再遇到类似的数组下标的情况的算法题，要注意边界，不要越最小界和最大界。</span></span><br><span class="line">    <span class="keyword">while</span> (L&lt;R-<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid=(L+R)/<span class="number">2</span>;</span><br><span class="line">        <span class="comment">//当arr[mid]&lt;arr[mid-1]&amp;&amp;arr[mid]&gt;arr[mid+1]时，类似于向上抛物线，因此最小值为arr[mid]。</span></span><br><span class="line">        <span class="comment">//当arr[mid]&gt;arr[mid-1]时，最小值一定出现在[L,mid-1]。该情况其实涵盖了两种子情况，分别是arr[mid]&gt;arr[mid+1]和arr[mid]&lt;arr[mid+1]</span></span><br><span class="line">        <span class="comment">//因此，只剩下最后一种情况：arr[mid]&lt;arr[mid-1]&amp;&amp;arr[mid]&lt;arr[mid+1],最小值一定出现在[mid+1,R]</span></span><br><span class="line">        <span class="keyword">if</span>(arr[mid]&lt;arr[mid-<span class="number">1</span>]&amp;&amp;arr[mid]&gt;arr[mid+<span class="number">1</span>])&#123;</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[mid]&gt;arr[mid-<span class="number">1</span>])&#123;</span><br><span class="line">            R=mid-<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            L=mid+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//当二分法到只有2个值时，会跳出while循环。两个值只需要比较出大小，即可得到最小值的下标。</span></span><br><span class="line">    <span class="keyword">return</span> arr[L]&lt;arr[R]?L:R;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>带有比较器的完整代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalMin</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> testTime=<span class="number">10000</span>;</span><br><span class="line">        <span class="keyword">int</span> maxLength=<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span> maxValue=<span class="number">100</span>;</span><br><span class="line">        <span class="keyword">int</span>[] arr=generateRandomArray(maxLength,maxValue);</span><br><span class="line">        <span class="keyword">int</span> index=LocalMinValue(arr);</span><br><span class="line">        System.out.println(<span class="string">&quot;程序开始&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;testTime;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!test(arr,index))&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;出错了&quot;</span>);</span><br><span class="line">                printArray(arr);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;程序结束&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">LocalMinValue</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">        <span class="comment">//断边界条件：arr为空，或者长度为0</span></span><br><span class="line">        <span class="keyword">if</span>(arr==<span class="keyword">null</span>&amp;&amp;arr.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> length= arr.length;</span><br><span class="line">        <span class="comment">//当数组只有一个元素时，该元素即为最小值，最小值的下标为0。</span></span><br><span class="line">        <span class="keyword">if</span>(length==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//最左侧两个数进行判断</span></span><br><span class="line">        <span class="keyword">if</span>(arr[<span class="number">0</span>]&lt;arr[<span class="number">1</span>])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//最右侧两个数进行判断</span></span><br><span class="line">        <span class="keyword">if</span>(arr[length-<span class="number">2</span>]&gt;arr[length-<span class="number">1</span>])&#123;</span><br><span class="line">            <span class="keyword">return</span> length-<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> L=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> R=length-<span class="number">1</span>;</span><br><span class="line">        <span class="comment">//为什么前面都是L&lt;=R,而这里是L&lt;R-1？</span></span><br><span class="line">        <span class="comment">//因为L的右边肯定有2个数：R-1和R，加上L这个数，该判断数组片断中至少有3个数，因此中位数mid就会在中间，</span></span><br><span class="line">        <span class="comment">// 所以，mid-1就不会出现0-1=-1越左边界的情况，也不会出现，length-1=length越右边界的情况。</span></span><br><span class="line">        <span class="comment">//因为前两道题中都没有根据数据下标取元素值，而此道算法题中出现了。因此以后再遇到类似的数组下标的情况的算法题，要注意边界，不要越最小界和最大界。</span></span><br><span class="line">        <span class="keyword">while</span> (L&lt;R-<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid=(L+R)/<span class="number">2</span>;</span><br><span class="line">            <span class="comment">//当arr[mid]&lt;arr[mid-1]&amp;&amp;arr[mid]&gt;arr[mid+1]时，类似于向上抛物线，因此最小值为arr[mid]。</span></span><br><span class="line">            <span class="comment">//当arr[mid]&gt;arr[mid-1]时，最小值一定出现在[L,mid-1]。该情况其实涵盖了两种子情况，分别是arr[mid]&gt;arr[mid+1]和arr[mid]&lt;arr[mid+1]</span></span><br><span class="line">            <span class="comment">//因此，只剩下最后一种情况：arr[mid]&lt;arr[mid-1]&amp;&amp;arr[mid]&lt;arr[mid+1],最小值一定出现在[mid+1,R]</span></span><br><span class="line">            <span class="keyword">if</span>(arr[mid]&lt;arr[mid-<span class="number">1</span>]&amp;&amp;arr[mid]&gt;arr[mid+<span class="number">1</span>])&#123;</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[mid]&gt;arr[mid-<span class="number">1</span>])&#123;</span><br><span class="line">                R=mid-<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                L=mid+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//当二分法到只有2个值时，会跳出while循环。两个值只需要比较出大小，即可得到最小值的下标。</span></span><br><span class="line">        <span class="keyword">return</span> arr[L]&lt;arr[R]?L:R;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//产生随机大小的数组，数组中的值也是随机的。</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] generateRandomArray(<span class="keyword">int</span> maxLength,<span class="keyword">int</span> maxValue)&#123;</span><br><span class="line">        <span class="keyword">int</span> length=(<span class="keyword">int</span>)(Math.random()*(maxLength+<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">int</span>[] array=<span class="keyword">new</span> <span class="keyword">int</span>[length];</span><br><span class="line">        <span class="keyword">if</span>(length&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            array[<span class="number">0</span>]=(<span class="keyword">int</span>)(Math.random()*(maxValue+<span class="number">1</span>))-(<span class="keyword">int</span>)(Math.random()*maxValue);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;length;i++)&#123;</span><br><span class="line">                <span class="comment">//为了获得相邻两数不等的数组，做了一个do...while操作。当相邻两数相等时，重新获得一个随机数，直至两个相邻的数不相等。</span></span><br><span class="line">                <span class="keyword">do</span>&#123;</span><br><span class="line">                    array[i]=(<span class="keyword">int</span>)(Math.random()*(maxValue+<span class="number">1</span>))-(<span class="keyword">int</span>)(Math.random()*maxValue);</span><br><span class="line"></span><br><span class="line">                &#125;<span class="keyword">while</span> (array[i-<span class="number">1</span>]==array[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//arr和相邻的两个数都不相等</span></span><br><span class="line">    <span class="comment">//该方法和之前算法中出现的测试方法不一样，之前算法中出现的方法是实现相同功能的测试方法，而下面这个测试方法是用自己写的方法的返回结果，验证是否符合条件——局部最小值。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> minIndex)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr==<span class="keyword">null</span>&amp;&amp;arr.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> minIndex==-<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> left=minIndex-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> right=minIndex+<span class="number">1</span>;</span><br><span class="line">        Boolean leftBigger=left&gt;=<span class="number">0</span>?arr[minIndex]&lt;arr[left]:<span class="keyword">true</span>;</span><br><span class="line">        Boolean rightBigger=right&lt;arr.length?arr[minIndex]&lt;arr[right]:<span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">return</span> leftBigger&amp;&amp;rightBigger;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果测试中的一个案例错了，可以将错误案例的数组打印出来</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArray</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(arr==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i:arr)&#123;</span><br><span class="line">            System.out.print(arr[i]+<span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/05/LeetCode%E4%B9%8B%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="刘胜男">
+      <meta itemprop="description" content="找到自己">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="时光记忆">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/05/LeetCode%E4%B9%8B%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/" class="post-title-link" itemprop="url">LeetCode之寻找两个正序数组的中位数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-05 19:14:01 / 修改时间：19:14:56" itemprop="dateCreated datePublished" datetime="2021-05-05T19:14:01+08:00">2021-05-05</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -228,27 +375,36 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a>无重复字符的最长子串</h3><p>给定一个字符串，请你找出其中不含有重复字符的 <strong>最长子串</strong> 的长度。</p>
+          <h3 id="寻找两个正序数组的中位数"><a href="#寻找两个正序数组的中位数" class="headerlink" title="寻找两个正序数组的中位数"></a>寻找两个正序数组的中位数</h3><p>给定两个大小分别为 <code>m</code> 和 <code>n</code> 的正序（从小到大）数组 <code>nums1</code> 和 <code>nums2</code>。请你找出并返回这两个正序数组的 <strong>中位数</strong> 。</p>
 <blockquote>
-<p>输入: s = “abcabcbb”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “abc”，所以其长度为 3。</p>
+<p>输入：nums1 = [1,3], nums2 = [2]<br>输出：2.00000<br>解释：合并数组 = [1,2,3] ，中位数 2</p>
 </blockquote>
 <blockquote>
-<p>输入: s = “bbbbb”<br>输出: 1<br>解释: 因为无重复字符的最长子串是 “b”，所以其长度为 1。</p>
+<p>输入：nums1 = [1,2], nums2 = [3,4]<br>输出：2.50000<br>解释：合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5</p>
 </blockquote>
 <blockquote>
-<p>输入: s = “pwwkew”<br>输出: 3<br>解释: 因为无重复字符的最长子串是 “wke”，所以其长度为 3。<br>  请注意，你的答案必须是 子串 的长度，”pwke” 是一个子序列，不是子串。</p>
+<p>输入：nums1 = [0,0], nums2 = [0,0]<br>输出：0.00000</p>
 </blockquote>
 <blockquote>
-<p>输入: s = “”<br>输出: 0</p>
+<p>输入：nums1 = [], nums2 = [1]<br>输出：1.00000</p>
 </blockquote>
-<h4 id="Version1"><a href="#Version1" class="headerlink" title="Version1"></a>Version1</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//如果是空字符串，返回0</span></span><br><span class="line">    <span class="keyword">if</span>(s.equals(<span class="string">&quot;&quot;</span>))<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//max为无重复字符的最长子串</span></span><br><span class="line">    <span class="keyword">int</span> max=<span class="number">0</span>;</span><br><span class="line">    <span class="comment">//left为左指针，为开始的字符串的第一个字母</span></span><br><span class="line">    <span class="keyword">int</span> left=<span class="number">0</span>;</span><br><span class="line">    <span class="comment">//&lt;key,value&gt;——&gt;&lt;字符,字符对应的下标&gt;</span></span><br><span class="line">    Map&lt;Character,Integer&gt; map=<span class="keyword">new</span> HashMap&lt;Character, Integer&gt;();</span><br><span class="line">    <span class="comment">//只进行一次for循环</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length();i++)&#123;</span><br><span class="line">        <span class="comment">//实现逻辑：</span></span><br><span class="line">        <span class="comment">//1.如果哈希表中不包括该字符，就将该字符和对应的下标加入哈希表中。</span></span><br><span class="line">        <span class="comment">//1.1 如果当前比较字符包含在当前字符串中，则将左指针移动到和当前比较字符相同字符位置的下一个位置。</span></span><br><span class="line">        <span class="comment">//1.2 如果当前比较字符不包含在当前字符串中，说明该字符在当前字符串中并没有重复，左指针不用变。</span></span><br><span class="line">        <span class="comment">//2.如果哈希表中包括该字符，也将该字符和对应的下标加入到哈希表中，替代原来的下标。因为从旧的下标开始已经找出最大的不重复字符串了，所以，不用重复了，只需要从最新的下标开始的地方，寻找无重复字符串。</span></span><br><span class="line">        <span class="comment">//3.i-left+1:为当前位置减去左指针然后加一，即为最长子串的长度。</span></span><br><span class="line">        <span class="keyword">if</span> (map.containsKey(s.charAt(i)))&#123;</span><br><span class="line">            left=Math.max(left,map.get(s.charAt(i))+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(s.charAt(i),i);</span><br><span class="line">        max=Math.max(max,i-left+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输入：nums1 = [2], nums2 = []<br>输出：2.00000</p>
+</blockquote>
+<h4 id="Version1：这是自己第一次顺畅的，没有修改的，一次性写对的算法题，骄傲"><a href="#Version1：这是自己第一次顺畅的，没有修改的，一次性写对的算法题，骄傲" class="headerlink" title="Version1：这是自己第一次顺畅的，没有修改的，一次性写对的算法题，骄傲"></a>Version1：这是自己第一次顺畅的，没有修改的，一次性写对的算法题，骄傲</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//整体思路：将nums1和nums2中的值赋值到一个新的数组，新数组的大小为原来两数组长度的和。从新得到的数组中就很容易得到中位数了。</span></span><br><span class="line">    <span class="keyword">int</span> len1=nums1.length;</span><br><span class="line">    <span class="keyword">int</span> len2=nums2.length;</span><br><span class="line">    <span class="keyword">int</span> len=len1+len2;</span><br><span class="line">    <span class="keyword">int</span>[] arr=<span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">    <span class="comment">//定义两个指针：start1和start2，start1表示数组1的移动下标，start2表示数组2的移动下标</span></span><br><span class="line">    <span class="keyword">int</span> start1=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> start2=<span class="number">0</span>;</span><br><span class="line">    <span class="comment">//ans表示最终的结果：中位数</span></span><br><span class="line">    <span class="keyword">double</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(start1&lt;len1&amp;&amp;start2&lt;len2)&#123;<span class="comment">//数组1和数组2都没有到最后</span></span><br><span class="line">            <span class="keyword">if</span>(nums1[start1]&lt;=nums2[start2])&#123;<span class="comment">//根据start1和start2位置数的大小，确定将那个数                                                插入到新数组中，并将指针移动到下一个位置。</span></span><br><span class="line">                arr[i]=nums1[start1];</span><br><span class="line">                start1++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                arr[i]=nums2[start2];</span><br><span class="line">                start2++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(start1&lt;len1)&#123;<span class="comment">//数组2已经遍历完成了，将数组1剩余的值复制到新数组中</span></span><br><span class="line">            arr[i]=nums1[start1];</span><br><span class="line">            start1++;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;<span class="comment">//数组1已经遍历完成了，将数组2剩余的值复制到新数组中</span></span><br><span class="line">            arr[i]=nums2[start2];</span><br><span class="line">            start2++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(len%<span class="number">2</span>==<span class="number">1</span>)&#123;</span><br><span class="line">        ans=arr[len/<span class="number">2</span>];</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        ans=(arr[len/<span class="number">2</span>-<span class="number">1</span>]+arr[len/<span class="number">2</span>])/<span class="number">2.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>执行用时：3 ms, 在所有 Java 提交中击败了82.29% 的用户</p>
+<p>内存消耗：39.5 MB, 在所有 Java 提交中击败了88.64% 的用户</p>
+</blockquote>
+<h4 id="Version2-利用二分法调用递归"><a href="#Version2-利用二分法调用递归" class="headerlink" title="Version2 利用二分法调用递归"></a>Version2 利用二分法调用递归</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m=nums1.length;</span><br><span class="line">        <span class="keyword">int</span> n=nums2.length;</span><br><span class="line">        <span class="keyword">int</span> left=(n+m+<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> right=(n+m+<span class="number">2</span>)/<span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//m+n的结果分为两种情况，和为奇数；和为偶数。下面这行代码将两种情况合成一种情况，不用进行分类讨论了。</span></span><br><span class="line">        <span class="comment">//当m+n为奇数，中位数则取中间值。(n+m+1)/2=中位数，而(n+m+2)/2=(n+m+1)/2+(1/2)=取整后为(n+m+1)/2，二者的和再除以2还为中位数。</span></span><br><span class="line">        <span class="comment">//当m+n为偶数，中位数则取中间两个数的平均值。(n+m+1)/2=(n+m)/2+(1/2)取整后为(n+m)/2；(n+m+2)/2=(n+m)/2+1；正好是中间的两个数，和的一半即为中位数。</span></span><br><span class="line">        <span class="keyword">return</span> (getKth(nums1,<span class="number">0</span>,m-<span class="number">1</span>,nums2,<span class="number">0</span>,n-<span class="number">1</span>,left)+getKth(nums1,<span class="number">0</span>,m-<span class="number">1</span>,nums2,<span class="number">0</span>,n-<span class="number">1</span>,right))/<span class="number">2.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getKth</span><span class="params">(<span class="keyword">int</span>[] nums1,<span class="keyword">int</span> start1,<span class="keyword">int</span> end1,<span class="keyword">int</span>[] nums2,<span class="keyword">int</span> start2,<span class="keyword">int</span> end2,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len1=end1-start1+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> len2=end2-start2+<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果第一个数组长度大于第二个字符长度，交换两个数组的位置，始终让较小的数组放在前面，这样可以保证当数组长度为0时，是第一个数组。</span></span><br><span class="line">        <span class="keyword">if</span>(len1&gt;len2)&#123;</span><br><span class="line">            <span class="keyword">return</span> getKth(nums2,start2,end2,nums1,start1,end1,k);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果第一个数组长度为0时，直接求第二数组的从start2起的第k-1个数。</span></span><br><span class="line">        <span class="comment">//递归终止条件1：</span></span><br><span class="line">        <span class="keyword">if</span>(len1==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> nums2[start2+k-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//递归终止条件2：</span></span><br><span class="line">        <span class="comment">//k==1,表示只需要求出第一个小的数即可，因此比较两个数组中第一个数的大小，返回较小的数。</span></span><br><span class="line">        <span class="keyword">if</span>(k==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> Math.min(nums1[start1],nums2[start2]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//对于第一个数组的第i个值分为2种情况</span></span><br><span class="line">        <span class="comment">//1.len1&lt;k/2:因此比较数组1的最后一个数和第二个数组的k/2个数</span></span><br><span class="line">        <span class="comment">//2.len1&gt;k/2;因此比较数组1的k/2个数和第二个数组的k/2个数</span></span><br><span class="line">        <span class="keyword">int</span> i=start1+Math.min(len1,k/<span class="number">2</span>)-<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//对于j来说是属于第二个数组的，因此不需要比较len2,k/2的大小，肯定是k/2。</span></span><br><span class="line"><span class="comment">//        int j=start2+Math.min(len2,k/2)-1;</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> j=start2+(k/<span class="number">2</span>)-<span class="number">1</span>;</span><br><span class="line">        <span class="comment">//调用递归，每次砍去一半值。</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(nums1[i]&gt;nums2[j])&#123;</span><br><span class="line">            <span class="keyword">return</span> getKth(nums1,start1,end1,nums2,j+<span class="number">1</span>,end2,k-(j-start2+<span class="number">1</span>));</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> getKth(nums1,i+<span class="number">1</span>,end1,nums2,start2,end2,k-(i-start1+<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><blockquote>
-<ol>
-<li>要弄清楚各个变量的含义。left为左指针，为开始的字符串的第一个字母。max为无重复字符的最长子串</li>
-<li>熟练掌握哈希表的get()方法和containsKey()方法</li>
-<li>滑动窗口是通过left指针通过跳过不必要的比较实现的。</li>
-<li>注意分类讨论的思想：比如某一个字符在哈希表中，分为2类，一类是该字符在当前字符串中，另一类是该字符不在当前字符串中。</li>
-</ol>
+<p>1.求中位数的下标时，可以借鉴如何将奇数和偶数合二为一的方式，就不用单独进行讨论了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> first=(n+<span class="number">1</span>)/<span class="number">2</span>;<span class="comment">//n为数组的长度</span></span><br><span class="line"><span class="keyword">int</span> second=(n+<span class="number">2</span>)/<span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> medium=(first+second)/<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>2.当两个数组相加时，当涉及到数组先计算完和后计算完（即数组长短的问题），可以人为的设置数组长度短的在前面，数组长的在后面，也可以简化分类操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(len1&gt;len2)&#123;</span><br><span class="line"> <span class="keyword">return</span> getKth(nums2,start2,end2,nums1,start1,end1,k);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.使用递归时，要设置好递归结束的条件。</p>
 </blockquote>
 
       
@@ -269,7 +425,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/03/LeetCode%E4%B9%8B%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/04/%E4%BB%8E01%E4%B8%8D%E7%AD%89%E6%A6%82%E7%8E%87%E9%9A%8F%E6%9C%BA%E5%8F%98%E6%88%90%E7%AD%89%E6%A6%82%E7%8E%87%E9%9A%8F%E6%9C%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -283,7 +439,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/05/03/LeetCode%E4%B9%8B%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" class="post-title-link" itemprop="url">LeetCode之两数相加</a>
+            <a href="/2021/05/04/%E4%BB%8E01%E4%B8%8D%E7%AD%89%E6%A6%82%E7%8E%87%E9%9A%8F%E6%9C%BA%E5%8F%98%E6%88%90%E7%AD%89%E6%A6%82%E7%8E%87%E9%9A%8F%E6%9C%BA/" class="post-title-link" itemprop="url">从01不等概率随机变成等概率随机</a>
         </h2>
 
         <div class="post-meta">
@@ -294,7 +450,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-05-03 08:04:50 / 修改时间：08:05:19" itemprop="dateCreated datePublished" datetime="2021-05-03T08:04:50+08:00">2021-05-03</time>
+              <time title="创建时间：2021-05-04 12:37:37 / 修改时间：12:37:56" itemprop="dateCreated datePublished" datetime="2021-05-04T12:37:37+08:00">2021-05-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -317,36 +473,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="两数相加"><a href="#两数相加" class="headerlink" title="两数相加"></a>两数相加</h3><p>给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。</p>
-<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
-<p>你可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
-<blockquote>
-<p>输入：l1 = [2,4,3], l2 = [5,6,4]<br>输出：[7,0,8]<br>解释：342 + 465 = 807.</p>
-</blockquote>
-<blockquote>
-<p>输入：l1 = [0], l2 = [0]<br>输出：[0]</p>
-</blockquote>
-<blockquote>
-<p>输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]<br>输出：[8,9,9,9,0,0,0,1]</p>
-</blockquote>
-<h4 id="Version1"><a href="#Version1" class="headerlink" title="Version1"></a>Version1</h4><p>思路：</p>
-<p>第一种情况：l1不为空，l2不为空</p>
-<p>第二种情况：l1不为空，l2为空</p>
-<p>第三种情况：l1为空，l2不为空</p>
-<p>以下代码前两个示例通过，最后一个没通过。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">    ListNode list=<span class="keyword">new</span> ListNode();</span><br><span class="line">    ListNode head=list;</span><br><span class="line">    <span class="keyword">int</span> fill=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (l1.next!=<span class="keyword">null</span>&amp;&amp;l2.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(l1.val+l2.val+fill&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">            head.val=l1.val+l2.val+fill-<span class="number">10</span>;</span><br><span class="line">            fill=<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            head.val=l1.val+l2.val+fill;</span><br><span class="line">            fill=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        head.next=<span class="keyword">new</span> ListNode();</span><br><span class="line">        head=head.next;</span><br><span class="line">        l1=l1.next;</span><br><span class="line">        l2=l2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(l1.next==<span class="keyword">null</span>&amp;&amp;l2.next==<span class="keyword">null</span>)&#123;</span><br><span class="line">        head.val=l1.val+l2.val+fill;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(l1.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(l1.val+fill&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">            head.val=l1.val+fill-<span class="number">10</span>;</span><br><span class="line">            fill=<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            head.val=l1.val+fill;</span><br><span class="line">            fill=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        head.next=<span class="keyword">new</span> ListNode();</span><br><span class="line">        l1=l1.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(l2.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(l2.val+fill&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">            head.val=l2.val+fill-<span class="number">10</span>;</span><br><span class="line">            fill=<span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            head.val=l2.val+fill;</span><br><span class="line">            fill=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        head.next=<span class="keyword">new</span> ListNode();</span><br><span class="line">        l2=l2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(fill==<span class="number">1</span>)&#123;</span><br><span class="line">        head.next=<span class="keyword">new</span> ListNode();</span><br><span class="line">        head=head.next;</span><br><span class="line">        head.val=fill;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Version2：官方答案"><a href="#Version2：官方答案" class="headerlink" title="Version2：官方答案"></a>Version2：官方答案</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span></span>&#123;</span><br><span class="line">        <span class="comment">//head为头指针，指向头结点。tail为尾指针，指向最后一个节点。</span></span><br><span class="line">        ListNode head=<span class="keyword">null</span>,tail=<span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//carry表示进位，不进位表示0，进位表示1。</span></span><br><span class="line">        <span class="keyword">int</span> carry=<span class="number">0</span>;</span><br><span class="line">        <span class="comment">//采用了化同的思想，将不同的情况归结为一种情况————如果一个链表为空，则后续的数值都变为0，这个是该算法最巧妙地地方</span></span><br><span class="line">        <span class="keyword">while</span>(l1!=<span class="keyword">null</span>||l2!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> a=l1!=<span class="keyword">null</span>?l1.val:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> b=l2!=<span class="keyword">null</span>?l2.val:<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> sum=a+b+carry;</span><br><span class="line">            <span class="comment">//分为2种情况：第一次插入，则给头指针和为指针赋值；非第一次插入，给尾指针赋值即可。</span></span><br><span class="line">            <span class="keyword">if</span>(head==<span class="keyword">null</span>)&#123;</span><br><span class="line">                head=<span class="keyword">new</span> ListNode(sum%<span class="number">10</span>);</span><br><span class="line">                tail=head;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                tail.next=<span class="keyword">new</span> ListNode(sum%<span class="number">10</span>);</span><br><span class="line">                tail=tail.next;</span><br><span class="line">            &#125;</span><br><span class="line">            carry=sum/<span class="number">10</span>;</span><br><span class="line">            <span class="comment">//注意：在指向下一个节点时，判断是否为空</span></span><br><span class="line">            <span class="keyword">if</span>(l1!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                l1=l1.next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//注意：在指向下一个节点时，判断是否为空</span></span><br><span class="line">            <span class="keyword">if</span>(l2!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                l2=l2.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//这是最后一位进行求和运算后，通过carry判断是否产生进位。如果产生进位，需要重新新建节点，插入为节点后面；如果没有产生进位，则不作其他处理。</span></span><br><span class="line">        <span class="keyword">if</span>(carry&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            tail.next=<span class="keyword">new</span> ListNode(carry);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>执行用时：2 ms, 在所有 Java 提交中击败了100.00% 的用户</p>
-<p>内存消耗：38.9 MB, 在所有 Java 提交中击败了47.67% 的用户</p>
-</blockquote>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><blockquote>
-<ol>
-<li>如果出现一个链表为空，另一个链表不为空，可以将空的地方都设置为0，方便操作。</li>
-<li>将<strong>（l1不为空）</strong>和<strong>（l1为空，但l2不为空）</strong>两种情况通过或||运算符进行整合操作。</li>
-<li>注意最后最高位相加，产生进位的情况，要在创建一个节点，保存最高位。</li>
-</ol>
-</blockquote>
+          <h3 id="0-1不等概率随机变为0-1等概率随机"><a href="#0-1不等概率随机变为0-1等概率随机" class="headerlink" title="0 1不等概率随机变为0 1等概率随机"></a>0 1不等概率随机变为0 1等概率随机</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不等概率随机变为0 1等概率随机</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">equalProbablity</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        a=random();</span><br><span class="line">    &#125;<span class="keyword">while</span> (a==random());</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//x以固定概率返回0和1，但是x的内容看不到。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">random</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Math.random()&lt;<span class="number">0.84</span>?<span class="number">0</span>:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -366,7 +493,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/02/LeetCode%E4%B9%8B%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/04/%E4%BB%8E1-5%E9%9A%8F%E6%9C%BA%E5%8F%98%E6%88%901-7%E9%9A%8F%E6%9C%BA%EF%BC%88%E6%95%B4%E6%95%B0%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -380,7 +507,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/05/02/LeetCode%E4%B9%8B%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">LeetCode之两数之和</a>
+            <a href="/2021/05/04/%E4%BB%8E1-5%E9%9A%8F%E6%9C%BA%E5%8F%98%E6%88%901-7%E9%9A%8F%E6%9C%BA%EF%BC%88%E6%95%B4%E6%95%B0%EF%BC%89/" class="post-title-link" itemprop="url">从1-5随机变成1-7随机（整数）</a>
         </h2>
 
         <div class="post-meta">
@@ -389,16 +516,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-05-02 22:52:05" itemprop="dateCreated datePublished" datetime="2021-05-02T22:52:05+08:00">2021-05-02</time>
+              <time title="创建时间：2021-05-04 12:35:45 / 修改时间：12:36:01" itemprop="dateCreated datePublished" datetime="2021-05-04T12:35:45+08:00">2021-05-04</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-03 08:03:21" itemprop="dateModified" datetime="2021-05-03T08:03:21+08:00">2021-05-03</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -420,41 +541,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h3><p>给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 的那 两个 整数，并返回它们的数组下标。</p>
-<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</p>
+          <h3 id="从1-5随机变成1-7随机（整数）"><a href="#从1-5随机变成1-7随机（整数）" class="headerlink" title="从1-5随机变成1-7随机（整数）"></a>从1-5随机变成1-7随机（整数）</h3><p>还是要将位运算运用的炉火纯青啊</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//得到1-5的等概率</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">f1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> random=(<span class="keyword">int</span>)(Math.random()*<span class="number">5</span>)+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> random;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//step1:得到0,1的等概率</span></span><br><span class="line"><span class="comment">//如果得到的值是3，则继续得到随机数。如果不为3，又分为两种情况：第一种：如果小于3，则返回0；第二种：如果大于3，则返回1。</span></span><br><span class="line"><span class="comment">//这是针对区间的个数是奇数的情况，排除中位数。如果区间的个数是偶数，就不用循环了，直接返回。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">f2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        a=f1();</span><br><span class="line">    &#125;<span class="keyword">while</span> (a==<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">return</span> a&lt;<span class="number">3</span>?<span class="number">0</span>:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//step2:得到[0,7]之间的概率</span></span><br><span class="line"><span class="comment">//利用的是位的左移运算，将0,1范围扩展至000~111范围，即从（0,1）扩展至（0,7）。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">f3</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=(f2()&lt;&lt;<span class="number">2</span>)+(f2()&lt;&lt;<span class="number">1</span>)+(f2()&lt;&lt;<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//step3:得到[0,6]之间的概率</span></span><br><span class="line"><span class="comment">//将随机数等于7的情况排除，即如果随机数为7，则重新进行随机运算，直至不等于7。即将等于7的概率评分给给了0,1,2,3,4,5,6。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">f4</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        a=f3();</span><br><span class="line">    &#125;<span class="keyword">while</span> (a==<span class="number">7</span>);</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//step4:得到[1,7]之间的概率</span></span><br><span class="line"><span class="comment">//进行简单的平移操作即可。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> f4()+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>输入：nums = [2,7,11,15], target = 9<br>输出：[0,1]</p>
-</blockquote>
-<blockquote>
-<p>输入：nums = [3,2,4], target = 6<br>输出：[1,2]</p>
-</blockquote>
-<blockquote>
-<p>输入：nums = [3,3], target = 6<br>输出：[0,1]</p>
-</blockquote>
-<h4 id="Version1"><a href="#Version1" class="headerlink" title="Version1"></a>Version1</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] index=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">    Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> HashMap&lt;Integer,Integer&gt;();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(map.containsKey(nums[i]))&#123;</span><br><span class="line">            index[<span class="number">0</span>]=(<span class="keyword">int</span>)map.get(nums[i]);</span><br><span class="line">            index[<span class="number">1</span>]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(target-nums[i],i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> index;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>改进：</p>
-<ol>
-<li>将index数组写到<strong>if()**方法体中，因为因为该数组在整个代码逻辑中只会用到一次，所以在</strong>if()<strong>方法体中进行数组的创建和初始化。但是在</strong>twoSum()<strong>方法的最后一行，添加</strong>return new int[0];**返回一个数组引用。</li>
-<li>第9行代码<strong>map.put(target-nums[i],i);**应该改成</strong>map.put(nums[i],i);。**因为前者将会将很多不属于nums[i]的数放进map中，属于无中生有，会额外增加内存。</li>
-</ol>
-<h4 id="Version2"><a href="#Version2" class="headerlink" title="Version2"></a>Version2</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">    <span class="comment">//创建一个哈希表，存储键值对</span></span><br><span class="line">    Map&lt;Integer,Integer&gt; map=<span class="keyword">new</span> HashMap&lt;Integer,Integer&gt;();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">        <span class="comment">//如果哈希表中包含该key——target-nums[i]，将target-nums[i]对应的value返回，再将i一起返回。</span></span><br><span class="line">        <span class="keyword">if</span>(map.containsKey(target-nums[i]))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;map.get(target-nums[i]),i&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果哈希表中不包含该key——nums[i]，将（数，数组下标）作为一个键值对添加到哈希表中。</span></span><br><span class="line">        map.put(nums[i],i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><blockquote>
-<ol>
-<li>数组中同一个元素在答案里不能重复出现，是不是提示了将数组中的元素作为不能重复的key值，而数组下标作为value值。如果是这样，题目要求返回两个数组下标，即返回两个value值。进一步考虑到方法的返回类型就是数组类型int[];</li>
-<li>最后一句<strong>return new int[0];**就是返回一个</strong>int**数组的引用，数组是空的，这样也可以减少空间。</li>
-<li>map.containsKey方法：判断哈希表中是否存在该key值。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsKey</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getNode(hash(key), key) != <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>map.get方法：通过key值获得value值。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt; e;</span><br><span class="line">    <span class="keyword">return</span> (e = getNode(hash(key), key)) == <span class="keyword">null</span> ? <span class="keyword">null</span> : e.value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>map.put方法：将key值和value值成对的放入哈希表中。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>扩展：从(a,b)随机到(c,d)随机</p>
+<p>思路：</p>
+<p>1.将(a,b)区间变为(0,1)区间</p>
+<p>2.判断(0,d-c)区间需要n个二进制位，用n个二进制位表示(0,2^n-1)</p>
+<p>3.将(0,2^n-1)区间变为(0,d-c)</p>
+<p>4.将(0,d-c)区间变为(c,d)</p>
 </blockquote>
 
       
@@ -475,7 +570,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/22/%E6%B2%89%E9%BB%98%E7%9A%84%E5%A4%A7%E5%A4%9A%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/04/Math-Random%E8%B0%83%E6%95%B4%E5%8C%BA%E9%97%B4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -489,7 +584,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/22/%E6%B2%89%E9%BB%98%E7%9A%84%E5%A4%A7%E5%A4%9A%E6%95%B0/" class="post-title-link" itemprop="url">沉默的大多数</a>
+            <a href="/2021/05/04/Math-Random%E8%B0%83%E6%95%B4%E5%8C%BA%E9%97%B4/" class="post-title-link" itemprop="url">Math.Random调整区间</a>
         </h2>
 
         <div class="post-meta">
@@ -500,7 +595,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-04-22 20:04:02 / 修改时间：20:30:06" itemprop="dateCreated datePublished" datetime="2021-04-22T20:04:02+08:00">2021-04-22</time>
+              <time title="创建时间：2021-05-04 12:35:11 / 修改时间：12:35:22" itemprop="dateCreated datePublished" datetime="2021-05-04T12:35:11+08:00">2021-05-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -508,7 +603,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%B9%A6%E7%B1%8D/" itemprop="url" rel="index"><span itemprop="name">书籍</span></a>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
                 </span>
             </span>
 
@@ -523,19 +618,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>&emsp;&emsp;评分：5分。</p>
-<p>&emsp;&emsp;《沉默的大多数》是王小波先生的作品你，他是我很喜欢的一个作家。我在纸上写下了对他的评价——幽默中带有讽刺，有一个有趣的灵魂，但是书中写的观点及其富有逻辑，相互论证推导，举例夸张，但有时有特别能说明问题。关于有些话题看完后，又显得特别沉重。他这个人又是比较直接，不容易改变自己的看法。我很敬佩他这样的人。书中对一些国内不好的现象作了批判，总觉得作了批判是好事，让更多人意识到自身存在的问题，然后再做的更好，否则容易夜郎自大。</p>
-<p>&emsp;&emsp;关于善恶的观点，引用其中的话（善于恶为一，正如上坡和下坡是同一条路。不知何为恶，焉知何为善？）</p>
-<p>&emsp;&emsp;比较有趣的例子：从此以后，我不敢去看任何一部电视剧，我怕我白发苍苍的老母亲忽然知道自己生了个傻儿子而伤心；就这句话而论，我倒希望它能活过来，说一句话“我是开个玩笑”，然后死去；精美，让读小说的惊喜，让打算写小说的人害怕；至于那道顶冠，既不遮阳，也不挡雨，只能招马蜂进去做窝。</p>
-<p>&emsp;&emsp;我个人认为做爱做的事情才是有，做自己也不知道为什么做的事情才是“无”。</p>
-<p>&emsp;&emsp;坏事就是坏事，好事就是好事，至于坏事可不可以变成好事，已经是另外一个问题了。</p>
-<p>&emsp;&emsp;我认为，人活在世界上，不必什么都知道，只要知道最好的就行了。</p>
-<p>&emsp;&emsp;这是因为尊严是属于个人的、不可压缩的空间，这块空间要靠自己来捍卫——捍卫的意思是指敢争、敢打官司、敢动手（勇斗歹徒）。我觉得人还是有点尊严的好，假如个人连个待的地方都没有，就无法为人做事，更不要说做别人的典范。人有无尊严，有一个简单的判据，是看他被当做一个人还是一个东西来对待。这件事有点两重性，其一是别人把你当做人还是东西，是你尊严之所在。</p>
-<p>&emsp;&emsp;现在我提起这些事情，绝不是想说这些朴实的人们有什么不对，而是试图说明，人经不起恭维。越是天真、朴实的人，听到一种于己有利的说法，证明自己身上有种种优越的素质，是人类中最优越的部分，就越会不知东西南北，撒起癔症来。</p>
-<p>&emsp;&emsp;我们学会了把世上一切事物分成好的和坏的以后，对世界的了解还是非常非常可怜的。我们还要继续学习一切是如何发生、如何变化的。这些知识会冲击我们过去形成的是非标准，这时我们就面临一个重大抉择，是接受事实，还是坚持旧有的价值观念？事实上有很多这样的人：他们“明辨是非”的能力却成了接触世界与了解世界的障碍，结果是终生停留在只会“明辨是非”的水平上。可以这样说，接受了一个伦理的体系不过达到了小学四年级的水平，而接受一个真理的体系就难得多，人们毕生都在学习科学，接触社会。人们知道得越多，明辨是非就越困难。</p>
-<p>&emsp;&emsp;王小波先生推荐的几本书：《情人》——王道乾，《青铜骑士》——查良铮（穆旦），《少女与死》，《法官和他的刽子手》，《巴巴拉上校》，《1984》——奥威尔。</p>
-<p>&emsp;&emsp;觉得他的文字有种醍醐灌顶的感觉，他有敏锐的洞察力和联想力，能够一阵见血的指出存在的问题，而我一直都置身其中，觉得是很正常的事情，读他的书，有助于更加认识我，我们。无论周围的环境怎么变得负责，但是自己的内心依旧坚定，这或许是我最佩服他的地方吧。</p>
-<p>&emsp;&emsp;读完有很多思考，但也有看不懂的地方，有空一定要再看一下。</p>
+          <h3 id="Math-Random调整区间1"><a href="#Math-Random调整区间1" class="headerlink" title="Math.Random调整区间1"></a>Math.Random调整区间1</h3><p>已知：Math.Random()返回[0,1)区间的小数，所以当x&lt;0时，返回[0,x)的概率为x。现在，求当x&lt;0时，返回[0,x)的概率为x的平方。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> testTimes=<span class="number">100000</span>;</span><br><span class="line">    <span class="keyword">double</span> x=<span class="number">0.7</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;testTimes;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(xToxPower2()&lt;x)&#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println((<span class="keyword">double</span>)count/(<span class="keyword">double</span>)testTimes);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">xToxPower2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//max(Math.random(),Math.random())&lt;x,表示：每一个数都&lt;x,根据概率问题，假设每一个数&lt;x的概率为p，则两个数都&lt;x的概率为p的平方。</span></span><br><span class="line">    <span class="keyword">return</span> Math.max(Math.random(),Math.random());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -555,7 +639,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/22/%E6%89%BE%E5%B7%A5%E4%BD%9C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/04/%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%ADL%E4%BD%8D%E7%BD%AE%E5%88%B0R%E4%BD%8D%E7%BD%AE%E7%9A%84%E7%B4%AF%E5%8A%A0%E5%92%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -569,7 +653,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/22/%E6%89%BE%E5%B7%A5%E4%BD%9C/" class="post-title-link" itemprop="url">找工作</a>
+            <a href="/2021/05/04/%E6%B1%82%E6%95%B0%E7%BB%84%E4%B8%ADL%E4%BD%8D%E7%BD%AE%E5%88%B0R%E4%BD%8D%E7%BD%AE%E7%9A%84%E7%B4%AF%E5%8A%A0%E5%92%8C/" class="post-title-link" itemprop="url">求数组中L位置到R位置的累加和</a>
         </h2>
 
         <div class="post-meta">
@@ -580,7 +664,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-04-22 19:37:02 / 修改时间：20:01:08" itemprop="dateCreated datePublished" datetime="2021-04-22T19:37:02+08:00">2021-04-22</time>
+              <time title="创建时间：2021-05-04 12:34:11 / 修改时间：12:34:34" itemprop="dateCreated datePublished" datetime="2021-05-04T12:34:11+08:00">2021-05-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -588,7 +672,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%88%91/" itemprop="url" rel="index"><span itemprop="name">我</span></a>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
                 </span>
             </span>
 
@@ -603,8 +687,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>&emsp;&emsp;自从20121年4月10号开始，我就变成了一个无业游民，所有人都催我赶紧找工作，包括：老韩，生哥，我爸，我妈，大伯，兰兰姐，娟姐。给我带来了很大的压力，我就在想，为什么一毕业就要开始上班，我晚两个月上班怎么了。我少挣两个月的钱怎么了，为什么感觉自己是世界上最可恶的人，再也不是最可爱的人了。到了什么时间就该干什么事，但是，能不能从孩子的角度去考虑问题呢？我就是一个挣钱的工具吗？我是个人好不好，我有自己的想法，自己的安排，为什么替我瞎操心，你就是告诉我100遍，投简历，找工作，有用吗？除了给我带了对于的心理负担，让我学不下去，还有什么好处吗？你们认为这个世界上所有的东西都是速成的，但我不认为是这样，人总是要扎扎实实的学，打下坚实的基础，这样以后才轻松。如果我现在去随便找了一份7000至8000的工作，我又能学到什么呢？我对自己高标准严要求有错吗？我可以按照这世俗的约定，上学，工作，结婚，生子。但是，请让我之间有喘息的机会，好吗？我自己有自己的安排，为什么所有人都要来打乱我。</p>
-<p>&emsp;&emsp;要学会尊重和相信孩子的想法和看法，而不是一味地按照世俗的观点去要求，我想作为一个人有尊严的活着，也请你们尊重我，我有自己的想法，我不是木偶，我也不想当木偶，我也不会成为木偶。</p>
+          <h3 id="求数组中L位置到R位置的累加和"><a href="#求数组中L位置到R位置的累加和" class="headerlink" title="求数组中L位置到R位置的累加和"></a>求数组中L位置到R位置的累加和</h3><p>此方法创建了一个静态内部类 RangeSum，具有一个成员变量——前缀和数组。由计算数组得到前缀和数组，这个过程只需要计算一次，所以需要将前缀和数组保存下来。在计算数组一样的情况下，如果不使用类，那么每次计算从L到R的值，都会重新计算一遍前缀和数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] arr=<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">3</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">12</span>,<span class="number">34</span>,<span class="number">23</span>,<span class="number">56</span>,<span class="number">88</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">    RangeSum rangeSum=<span class="keyword">new</span> RangeSum();</span><br><span class="line">    rangeSum.rangeSum2(arr);</span><br><span class="line">    <span class="keyword">int</span> result=rangeSum.rangeSum(<span class="number">1</span>,<span class="number">5</span>);</span><br><span class="line">    System.out.println(result);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">RangeSum</span> </span>&#123;</span><br><span class="line">    <span class="comment">//存储数组中从0到i的前缀和</span></span><br><span class="line">    <span class="keyword">int</span>[] preSum;</span><br><span class="line">    <span class="comment">//获取前缀和数组</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rangeSum2</span><span class="params">(<span class="keyword">int</span>[] array)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len=array.length;</span><br><span class="line">        preSum=<span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        preSum[<span class="number">0</span>]=array[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;len;i++)&#123;</span><br><span class="line">            preSum[i]=preSum[i-<span class="number">1</span>]+array[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果L为0，即使从0到R位置的值，此值正好等于preSum[R]。</span></span><br><span class="line">    <span class="comment">//如果L不为0，则[0~R]-[0~L-1]即为[L~R]的值。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rangeSum</span><span class="params">(<span class="keyword">int</span> L, <span class="keyword">int</span> R)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> L==<span class="number">0</span>?preSum[R]:(preSum[R]-preSum[L-<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -624,7 +708,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/20/cmd%E8%BF%90%E8%A1%8Cjava%E6%96%87%E4%BB%B6%E6%97%B6%E5%87%BA%E7%8E%B0%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/04/%E5%B0%86%E4%B8%80%E4%B8%AA%E5%8D%81%E8%BF%9B%E5%88%B6%E7%9A%84%E6%95%B0%E8%BD%AC%E6%8D%A2%E6%88%9032%E4%BD%8D%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%89%93%E5%8D%B0%E5%87%BA%E6%9D%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -638,7 +722,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/20/cmd%E8%BF%90%E8%A1%8Cjava%E6%96%87%E4%BB%B6%E6%97%B6%E5%87%BA%E7%8E%B0%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">cmd运行java文件时出现中文乱码的问题</a>
+            <a href="/2021/05/04/%E5%B0%86%E4%B8%80%E4%B8%AA%E5%8D%81%E8%BF%9B%E5%88%B6%E7%9A%84%E6%95%B0%E8%BD%AC%E6%8D%A2%E6%88%9032%E4%BD%8D%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%89%93%E5%8D%B0%E5%87%BA%E6%9D%A5/" class="post-title-link" itemprop="url">将一个十进制的数转换成32位的二进制打印出来</a>
         </h2>
 
         <div class="post-meta">
@@ -649,7 +733,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-04-20 12:01:53 / 修改时间：12:07:35" itemprop="dateCreated datePublished" datetime="2021-04-20T12:01:53+08:00">2021-04-20</time>
+              <time title="创建时间：2021-05-04 12:33:25 / 修改时间：12:33:42" itemprop="dateCreated datePublished" datetime="2021-05-04T12:33:25+08:00">2021-05-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -657,7 +741,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
                 </span>
             </span>
 
@@ -672,15 +756,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>由于cmd命令控制符中的字节编码格式默认为GBK，当出现乱码时，首先考虑使用的文本编辑器的编码格式是否和GBK相匹配？</p>
-<p>下面是关于记事本和notepad++如何设置编码格式的介绍：</p>
-<ol>
-<li><p>记事本</p>
-<img src="/2021/04/20/cmd%E8%BF%90%E8%A1%8Cjava%E6%96%87%E4%BB%B6%E6%97%B6%E5%87%BA%E7%8E%B0%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/1618887452701.png" class="">
-</li>
-<li><p>notepad++</p>
-<img src="/2021/04/20/cmd%E8%BF%90%E8%A1%8Cjava%E6%96%87%E4%BB%B6%E6%97%B6%E5%87%BA%E7%8E%B0%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98/1618887505015.png" class=""></li>
-</ol>
+          <h3 id="将一个十进制的数转换成32位的二进制打印出来"><a href="#将一个十进制的数转换成32位的二进制打印出来" class="headerlink" title="将一个十进制的数转换成32位的二进制打印出来"></a>将一个十进制的数转换成32位的二进制打印出来</h3><p>比如求出7的32位二进制位：</p>
+<p>7           00000000000000000000000000000111</p>
+<p>第一次  10000000000000000000000000000000      &amp;结果：00000000000000000000000000000000      打印0</p>
+<p>第二次  01000000000000000000000000000000      &amp;结果：00000000000000000000000000000000      打印0</p>
+<p>………..</p>
+<p>第30次  00000000000000000000000000000100      &amp;结果：00000000000000000000000000000100      打印1</p>
+<p>第31次  00000000000000000000000000000010      &amp;结果：00000000000000000000000000000010      打印1</p>
+<p>第32次  00000000000000000000000000000001      &amp;结果：00000000000000000000000000000001      打印1</p>
+<p>所以：最终的打印结果为：00000000000000000000000000000111</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printBinary</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">31</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        System.out.print((n&amp;<span class="number">1</span>&lt;&lt;i)==<span class="number">0</span>?<span class="number">0</span>:<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -700,7 +785,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/20/%E5%A6%82%E4%BD%95%E4%BB%A5%E7%AE%A1%E7%90%86%E5%91%98%E8%BA%AB%E4%BB%BD%E8%BF%90%E8%A1%8Ccmd/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/04/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -714,7 +799,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/20/%E5%A6%82%E4%BD%95%E4%BB%A5%E7%AE%A1%E7%90%86%E5%91%98%E8%BA%AB%E4%BB%BD%E8%BF%90%E8%A1%8Ccmd/" class="post-title-link" itemprop="url">如何以管理员身份运行cmd</a>
+            <a href="/2021/05/04/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">选择排序</a>
         </h2>
 
         <div class="post-meta">
@@ -725,7 +810,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-04-20 11:42:17 / 修改时间：11:44:26" itemprop="dateCreated datePublished" datetime="2021-04-20T11:42:17+08:00">2021-04-20</time>
+              <time title="创建时间：2021-05-04 12:32:39 / 修改时间：12:32:55" itemprop="dateCreated datePublished" datetime="2021-05-04T12:32:39+08:00">2021-05-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -733,7 +818,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
                 </span>
             </span>
 
@@ -748,9 +833,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在用cmd中运行安装jre时，可能会出错，此时，需要以管理员的身份运行cmd（命令提示符），操作流程如下图所示。</p>
-<img src="/2021/04/20/%E5%A6%82%E4%BD%95%E4%BB%A5%E7%AE%A1%E7%90%86%E5%91%98%E8%BA%AB%E4%BB%BD%E8%BF%90%E8%A1%8Ccmd/1618886900341.png" class="" width="1618886900341">
-
+          <h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] arr=<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">4</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">10</span>&#125;;</span><br><span class="line">    selection(arr);</span><br><span class="line">    printArray(arr);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selection</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">    <span class="comment">//不要忘记对数组是否为空，以及数组长度为1的情况。</span></span><br><span class="line">    <span class="comment">//数组为空，即没有要比较的内容，返回。</span></span><br><span class="line">    <span class="comment">//数组的长度为1个，也不用排序</span></span><br><span class="line">    <span class="keyword">if</span>(arr==<span class="keyword">null</span> || arr.length&lt;<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;arr.length-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> minValueIndex=i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;arr.length;j++)&#123;</span><br><span class="line">            minValueIndex=arr[j]&lt;arr[minValueIndex]?j:minValueIndex;</span><br><span class="line">        &#125;</span><br><span class="line">        swap(arr,minValueIndex,i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArray</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</span><br><span class="line">        System.out.print(arr[i]+<span class="string">&quot; &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp=arr[i];</span><br><span class="line">    arr[i]=arr[j];</span><br><span class="line">    arr[j]=temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -770,7 +853,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/20/%E5%8F%8D%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/04/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -784,7 +867,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/04/20/%E5%8F%8D%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">反编译工具及其使用</a>
+            <a href="/2021/05/04/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">冒泡排序</a>
         </h2>
 
         <div class="post-meta">
@@ -795,7 +878,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-04-20 11:39:28 / 修改时间：11:47:03" itemprop="dateCreated datePublished" datetime="2021-04-20T11:39:28+08:00">2021-04-20</time>
+              <time title="创建时间：2021-05-04 12:31:57 / 修改时间：12:32:09" itemprop="dateCreated datePublished" datetime="2021-05-04T12:31:57+08:00">2021-05-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -803,7 +886,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
                 </span>
             </span>
 
@@ -818,200 +901,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <ol>
-<li><h4 id="反编译工具："><a href="#反编译工具：" class="headerlink" title="反编译工具："></a>反编译工具：</h4><ul>
-<li>jd-gui.exe<br>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iwOWa_Ev0YJ0Pu1O0l4IIA">https://pan.baidu.com/s/1iwOWa_Ev0YJ0Pu1O0l4IIA</a><br>提取码：hicr </li>
-<li>luyten-0.5.4.exe</li>
-<li>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1hm49PoW9lAyYK1k5rRVypA">https://pan.baidu.com/s/1hm49PoW9lAyYK1k5rRVypA</a><br>提取码：g7ug </li>
-</ul>
-</li>
-<li><h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p><strong>2.1 原java文件</strong></p>
-<img src="/2021/04/20/%E5%8F%8D%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/1618888697778.png" class="" title="知识">
-
-<p><strong>2.2 jd-gui.exe的使用</strong></p>
-<p>将class文件直接拖拽到jd-gui.exe上，既可以弹出反编译出的java文件。</p>
-<img src="/2021/04/20/%E5%8F%8D%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/1618888535462.png" class="" title="知识">
-
-<p><strong>2.3 luyten-0.5.4.exe的使用</strong></p>
-<p>将class文件直接拖拽到luyten-0.5.4.exe上，既可以弹出反编译出的java文件。</p>
-<img src="/2021/04/20/%E5%8F%8D%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/1618888496789.png" class="" title="知识">
-</li>
-<li><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>通过反编译，可以看出反编译得到的java文件和原java文件有一些细微的区别，比如导入了java.io.PrintStream包，比如参数的名称。</p>
-</li>
-<li><h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>当一个项目完成后，会将jar包上传到服务器上，当我们只有服务器上的jar包时，就可以将jar包反编译成java源代码，在java源代码上修改，修改完成后，在将代码打成jar包的形式上传到服务器上。</p>
-<p>eg：将tools.jar拖拽到jd-gui.exe上，结果如下图所示，会以包的形式展现：</p>
-<img src="/2021/04/20/%E5%8F%8D%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/1618889234404.png" class="" title="知识">
-
-<img src="/2021/04/20/%E5%8F%8D%E7%BC%96%E8%AF%91%E5%B7%A5%E5%85%B7%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/1618889269717.png" class="" title="知识">
-
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/20/%E7%94%B5%E8%84%91%E4%B8%AD%E5%A4%9A%E4%B8%AAjdk%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%88%87%E6%8D%A2%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="刘胜男">
-      <meta itemprop="description" content="找到自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="时光记忆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/20/%E7%94%B5%E8%84%91%E4%B8%AD%E5%A4%9A%E4%B8%AAjdk%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%88%87%E6%8D%A2%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC/" class="post-title-link" itemprop="url">电脑中多个jdk应该如何切换不同版本</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-04-20 11:36:14 / 修改时间：11:38:39" itemprop="dateCreated datePublished" datetime="2021-04-20T11:36:14+08:00">2021-04-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>电脑中是可以安装多个不同版本的jdk的，用到那个版本的jdk，只需要更改对应的JAVA_HOME对应的路径即可。</p>
-<p>现在jdk的版本是12，将jdk版本修改成8</p>
-<hr>
-<p><strong>修改前：</strong></p>
-<ol>
-<li>jdk版本为12<img src="/2021/04/20/%E7%94%B5%E8%84%91%E4%B8%AD%E5%A4%9A%E4%B8%AAjdk%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%88%87%E6%8D%A2%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC/1618886091878.png" class="" title="知识"></li>
-<li>环境变量为：F:\Java\jdk-12.0.2<img src="/2021/04/20/%E7%94%B5%E8%84%91%E4%B8%AD%E5%A4%9A%E4%B8%AAjdk%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%88%87%E6%8D%A2%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC/1618886192392.png" class="" title="知识">
-
-</li>
-</ol>
-<hr>
-<p><strong>修改：</strong></p>
-<ol>
-<li>选择浏览目录，选择安装jdk8的根目录：F:\Java\jdk1.8.0_202<img src="/2021/04/20/%E7%94%B5%E8%84%91%E4%B8%AD%E5%A4%9A%E4%B8%AAjdk%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%88%87%E6%8D%A2%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC/1618886252183.png" class="" title="知识"></li>
-<li>点击确定。</li>
-</ol>
-<hr>
-<p><strong>修改后：</strong></p>
-<p>jdk版本变为8</p>
-<img src="/2021/04/20/%E7%94%B5%E8%84%91%E4%B8%AD%E5%A4%9A%E4%B8%AAjdk%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%88%87%E6%8D%A2%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC/1618886449655.png" class="" title="知识">
-
-<hr>
-<p>由于环境变量Path中有对JAVA_HOME的引用，所以只需要修改JAVA_HOME的值，Path的值会自动修改。</p>
-<img src="/2021/04/20/%E7%94%B5%E8%84%91%E4%B8%AD%E5%A4%9A%E4%B8%AAjdk%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%88%87%E6%8D%A2%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC/1618886715719.png" class="" title="知识">
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/20/%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="刘胜男">
-      <meta itemprop="description" content="找到自己">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="时光记忆">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/20/%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC/" class="post-title-link" itemprop="url">编程风格</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-04-20 11:34:45 / 修改时间：11:35:26" itemprop="dateCreated datePublished" datetime="2021-04-20T11:34:45+08:00">2021-04-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ol>
-<li>注意缩进</li>
-<li>注意成对的大括号，小括号，引号</li>
-<li>见名知意</li>
-</ol>
+          <h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] arr=<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">4</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">10</span>&#125;;</span><br><span class="line">    bubbleSort(arr);</span><br><span class="line">    printArray(arr);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">    <span class="comment">//不要忘记对数组是否为空，以及数组长度为1的情况。</span></span><br><span class="line">    <span class="comment">//数组为空，即没有要比较的内容，返回。</span></span><br><span class="line">    <span class="comment">//数组的长度为1个，也不用排序</span></span><br><span class="line">    <span class="keyword">if</span>(arr==<span class="keyword">null</span> || arr.length&lt;<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> N=arr.length;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N-<span class="number">1</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;N-i;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[j-<span class="number">1</span>]&gt;arr[j])&#123;</span><br><span class="line">                swap(arr,j-<span class="number">1</span>,j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp=arr[i];</span><br><span class="line">    arr[i]=arr[j];</span><br><span class="line">    arr[j]=temp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArray</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</span><br><span class="line">        System.out.print(arr[i]+<span class="string">&quot; &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1030,7 +920,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1098,7 +988,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1149,7 +1039,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共21.6k字</span>
+  <span class="post-count">博客全站共26.1k字</span>
 </div>
 
         
